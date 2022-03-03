@@ -1,20 +1,35 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from 'react';
+import { Button, StyleSheet, Text, TextInputBase, View,TextInput, ScrollView, FlatList } from 'react-native';
+import GoalCom from './components/GoalCom';
+import InputCom from './components/InputCom';
+
+
+
 
 export default function App() {
+
+  const [listGoal, setListGoal] =useState([])
+ 
+  const handleAddGoal =(goal) => {
+    setListGoal(prev => [...prev, {id:Math.random().toString() , goal:goal}])
+
+    console.log(listGoal)
+  }
+ 
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ScrollView >
+      <InputCom addGoal={handleAddGoal} />
+  
+      <GoalCom goal={listGoal} setFuncGoal={setListGoal}/>
+
+
+    </ScrollView>  
+   
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+
 });
